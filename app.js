@@ -1,103 +1,73 @@
-const STORAGE_KEY = "todos";
+const todoForm = document.getElementById('todo-form');
+const todoInput = document.getElementById('todo-input');
+const todoList = document.getElementById('todo-list');
+const itemsLeft = document.getElementById('items-left');
+const clearCompletedButton = document.getElementById('clear-completed');
+const filters = document.querySelectorAll('.filter');
 
-// Helpers
-function saveToStorage(key, data) {
-    localStorage.setItem(key, JSON.stringify(data));
+let todos = []; // Store todos in an array
+
+// Function to update the list
+function updateTodoList() {
+    todoList.innerHTML = '';
+    todos.forEach((todo, index) => {
+        const li = document.createElement('li');
+        li.classList.toggle('completed', todo.completed);
+        li.innerHTML = `
+            <span class="todo-text">${todo.text}</span>
+            <button class="toggle-complete" onclick="toggleComplete(${index})">✔</button>
+            <button class="delete" onclick="deleteTask(${index})">✘</button>
+        `;
+        todoList.appendChild(li);
+    });
+    itemsLeft.textContent = `${todos.filter(todo => !todo.completed).length} items left`;
 }
 
-function getFromStorage(key, defaultValue = []) {
-    const data = localStorage.getItem(key);
-    return data ? JSON.parse(data) : defaultValue;
-}
-
-// Load + Save
-function loadTodos() {
-    return getFromStorage(STORAGE_KEY, []);
-}
-
-function saveTodos(todos) {
-    saveToStorage(STORAGE_KEY, todos);
-}
-
-// Add Todo
-function addTodo(text) {
-    const todos = loadTodos();
-
+// Add a new task
+todoForm.addEventListener('submit', function (event) {
+    event.preventDefault();
     const newTodo = {
-        id: Date.now(),
-        text,
+        text: todoInput.value,
         completed: false,
-        createdAt: new Date().toISOString()
     };
-
     todos.push(newTodo);
-    saveTodos(todos);
-    renderTodos();
+    todoInput.value = '';
+    updateTodoList();
+});
+
+// Toggle task completion
+function toggleComplete(index) {
+    todos[index].completed = !todos[index].completed;
+    updateTodoList();
 }
 
-function handleAdd() {
-    const input = document.getElementById("todo-input");
-    if (input.value.trim()) {
-        addTodo(input.value);
-        input.value = "";
-    }
+// Delete task
+function deleteTask(index) {
+    todos.splice(index, 1);
+    updateTodoList();
 }
 
-// Toggle
-function toggleTodo(id) {
-    const todos = loadTodos();
+// Clear all tasks
+clearCompletedButton.addEventListener('click', function () {
+    todos = []; // Clear the entire todo list
+    updateTodoList();
+});
 
-    const updated = todos.map(todo =>
-        todo.id === id ? { ...todo, completed: !todo.completed } : todo
-    );
-
-    saveTodos(updated);
-    renderTodos();
-}
-
-// Delete
-function deleteTodo(id) {
-    const todos = loadTodos().filter(todo => todo.id !== id);
-    saveTodos(todos);
-    renderTodos();
-}
-
-// Render
-function renderTodos() {
-    const list = document.getElementById("todo-list");
-    list.innerHTML = "";
-
-    const spanClass = todo.completed ? "completed" : "";
-
-li.innerHTML = `
-    <span class="${spanClass}">${todo.text}</span>
-    <div class="status-icons">
-        <span class="status-icon complete">
-            ${todo.completed ? "✔" : ""}
-        </span>
-        <span class="status-icon delete">
-            ❌
-        </span>
-    </div>
-`;
-}
-
-// Init
-document.addEventListener("DOMContentLoaded", renderTodos);
-
-
-function calculateOrderTotal(items) {
-    let total = 0;
-
-    for (let i = 0; i < items.length; i++) {
-        const item = items[i];
-        total += item.price * item.quantity;
-    }
-
-    if (total > 100) {
-        total = total * 0.9;
-    }
-
-    return total;
-}
-
+// Filter tasks
+filters.forEach(filter => {
+    filter.addEventListener('click', function () {
+        filters.forEach(f => f.classList.remove('active'));
+        filter.classList.add('active');
+        
+        const filterType = filter.getAttribute('data-filter');
+        if (filterType === 'all') {
+            updateTodoList();
+        } else if (filterType === 'active') {
+            updateTodoList();
+            todos = todos.filter(todo => !todo.completed);
+        } else if (filterType === 'completed') {
+            updateTodoList();
+            todos = todos.filter(todo => todo.completed);
+        }
+    });
+});
