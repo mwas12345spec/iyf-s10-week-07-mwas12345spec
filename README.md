@@ -1,4 +1,4 @@
-# Week 07: {Project Title}
+# Week 07:  JavaScript Best Practices
 
 ## Author
 - **Name:** Mark  Mwangi
