@@ -27,8 +27,7 @@ This project is a To-Do List application that saves tasks using localStorage.
 - Writing clean code
 
 ## Challenges Faced
-- Understanding storage
-- Fixing bugs
-  
-## Live Demo 
+What problems did you encounter and how did you solve them?
+
+## Live Demo (if deployed)
 [View Live Demo](https://your-deployed-url.com)
