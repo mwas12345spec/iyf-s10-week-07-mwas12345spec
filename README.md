@@ -1,35 +1,34 @@
-# Week 07:  JavaScript Best Practices
+# Week 7: To-Do List with Persistence
 
 ## Author
 - **Name:** Mark  Mwangi
 - **GitHub:** [@mwas12345spec](https://github.com/mwas12345spec)
 - **Date:** Month Day, Year
-
 ## Project Description
-Brief description of what you built and why.
+This project is a To-Do List application that saves tasks using localStorage.
 
 ## Technologies Used
-- HTML5
-- CSS3
+- HTML
+- CSS
 - JavaScript
-- (list all technologies)
 
 ## Features
-- Feature 1
-- Feature 2
-- Feature 3
+- Add tasks
+- Delete tasks
+- Mark tasks complete
+- Data persists after refresh
 
 ## How to Run
-1. Clone this repository
-2. Open `index.html` in your browser
-   OR
-   Run `npm install` then `npm start`
+1. Open index.html in browser
 
 ## Lessons Learned
-What did you learn while building this project?
+- How to use localStorage
+- JSON stringify/parse
+- Writing clean code
 
 ## Challenges Faced
-What problems did you encounter and how did you solve them?
-
-## Live Demo (if deployed)
+- Understanding storage
+- Fixing bugs
+  
+## Live Demo 
 [View Live Demo](https://your-deployed-url.com)
