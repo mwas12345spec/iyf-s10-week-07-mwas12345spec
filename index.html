@@ -20,5 +20,16 @@
 
 <script src="app.js"></script>
 
+    <script>
+function handleAdd() {
+    const input = document.getElementById("todo-input");
+    if (input.value.trim()) {
+        addTodo(input.value);
+        input.value = "";
+    }
+}
+</script>
+
+
 </body>
 </html>
