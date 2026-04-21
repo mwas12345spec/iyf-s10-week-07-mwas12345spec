@@ -29,5 +29,5 @@ This project is a To-Do List application that saves tasks using localStorage.
 ## Challenges Faced
 What problems did you encounter and how did you solve them?
 
-## Live Demo (if deployed)
+## Live Demo
 [View Live Demo]( https://mwas12345spec.github.io/iyf-s10-week-07-mwas12345spec/)
